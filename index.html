@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sky-3D</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Glow Component - A-Frame" />
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/3dstreet@0.1.1/src/components/ocean-plane.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/HAZARDU5/aframe-orbit-controls-component@d6f809f8e55f9060ff142b6a62c5371c2952cb41/dist/aframe-orbit-controls-component.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item
+          id="helicopter-base-obj"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterCenteredNoRotors.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="helicopter-base-mtl"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterCenteredNoRotors.mtl"
+        ></a-asset-item>
+        
+
+        <a-asset-item
+          id="helicopter-toprotor-obj"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterCenteredTopRotors.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="helicopter-toprotor-mtl"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterCenteredTopRotors.mtl"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="helicopter-rearrotor-obj"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterRearRotor.obj"
+        ></a-asset-item>
+        <a-asset-item
+          id="helicopter-rearrotor-mtl"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6-helicopterRearRotor.mtl"
+        ></a-asset-item>
+
+        <audio
+          id="sfx-blades"
+          src="99edc77b-510f-481a-bb63-71a808ccaad6_Helicopter Hover Loop 2.mp3"
+          crossorigin="anonymous"
+        ></audio>
+
+        <img
+          id="sky"
+          src="sunset18.jpg"
+          alt = "sky"
+          crossorigin="anonymous"
+        />
+        <img
+          id="water"
+          src="Water 1.jpg"
+          alt = "water"
+          crossorigin="anonymous"
+        />
+        <img
+          id="fog"
+          src="fog01.png"
+          alt = "fog"
+          crossorigin="anonymous"
+        />
+        <img
+          id="sun"
+          src="sunbeam.jpeg"
+          alt = "sun"
+          crossorigin="anonymous"
+        />
+        <a-asset-item
+          id="ocean-sfx"
+          src="ocean-sfx.flac"
+        ></a-asset-item>
+      </a-assets>
+      <a-entity
+        id="camera"
+        camera
+        position= "-3.2 6.1 13.1"
+        orbit-controls="
+                  target: #helicopter;
+                  enableDamping: true;
+                  dampingFactor: 1.2;
+                  rotateSpeed:0.25;
+                  rotateToSpeed: 0.14;
+                  rotateTo: 1.6 0.5 3.2;
+                  logPosition: true;
+                  maxPolarAngle: 2.4;
+                  "
+      >
+      </a-entity>
+      <a-sphere src = "#sun" position="0.6 5.6 -26" translate="0 1.2 0" radius="1.2" roughness="0.2"
+         rotation="-90 0 0" intensity = "1.2" scale="1.75 1.75 1.75">
+      </a-sphere><a-ring position = "0.8 5.8 -26" intensity = "1.5" scale = "2.0 2.2 1.9" color="#f4a609"></a-ring>
+      <a-sky src="#sky" position="0 0 0" rotation="0 -10 0"> </a-sky>
+      
+      
+
+      <a-ocean-plane
+        scale="0.5 0.5 0.5"
+        position="0 0 0"
+        material="normalMap: #water; sphericalEnvMap: #water"
+      >
+        <a-ocean-plane
+          scale="1 1 1"
+          position="0 0 0"
+          material="sphericalEnvMap:#water"
+        ></a-ocean-plane>
+        <a-animation
+          attribute="position"
+          to="0 0 100"
+          dur="2500"
+          repeat="indefinitely"
+          easing="linear"
+        ></a-animation>
+      </a-ocean-plane>
+
+      <a-entity
+        id="helicopter"
+        scale="0.5 0.5 0.5"
+        position="0 3 -3"
+        rotation="-20 0 0"
+        sound="src: #sfx-blades; autoplay: true; loop: true; rolloffFactor:0"
+      >
+        <a-entity
+          id="helicopter-base"
+          obj-model="obj: #helicopter-base-obj; mtl:#helicopter-base-mtl"
+          position="0 0 0"
+          shadow="cast:true;receive:true"
+        ></a-entity>
+        <a-entity
+          id="helicopter-toprotor"
+          obj-model="obj: #helicopter-toprotor-obj;"
+          position="0 0 0a"
+          material="roughness: 0.28; color: #7777fe"
+          shadow="cast:true;receive:true"
+        >
+          <a-animation
+            attribute="rotation"
+            to="0 360 0"
+            dur="250"
+            repeat="indefinitely"
+            easing="linear"
+          ></a-animation>
+        </a-entity>
+        <a-entity
+          id="helicopter-rearrotor"
+          obj-model="obj: #helicopter-rearrotor-obj;"
+          position="-0.037 3.48 6.57"
+          material="roughness: 0.28; color: #7777fe;"
+          shadow="cast:true;receive:true"
+        >
+          <a-animation
+            attribute="rotation"
+            to="360 0 0"
+            dur="250"
+            repeat="indefinitely"
+            easing="linear"
+          ></a-animation>
+        </a-entity>
+      </a-entity>
+
+      <a-entity
+        id="reflection-helicopter"
+        scale="0.5 0.5 0.5"
+        position="0 -3 -3"
+        rotation="20 0 180"
+      >
+        <a-entity
+          id="rhelicopter-base"
+          obj-model="obj: #helicopter-base-obj; mtl:#helicopter-base-mtl"
+          position="0 0 0"
+          shadow="cast:true;receive:true"
+        ></a-entity>
+        <a-entity
+          id="rhelicopter-toprotor"
+          obj-model="obj: #helicopter-toprotor-obj;"
+          position="0 0 0a"
+          material="roughness: 0.28; color: #7777fe"
+          shadow="cast:true;receive:true"
+        >
+          <a-animation
+            attribute="rotation"
+            to="0 360 0"
+            dur="250"
+            repeat="indefinitely"
+            easing="linear"
+          ></a-animation>
+        </a-entity>
+        <a-entity
+          id="rhelicopter-rearrotor"
+          obj-model="obj: #helicopter-rearrotor-obj;"
+          position="-0.037 3.48 6.57"
+          material="roughness: 0.28; color: #7777fe;"
+          shadow="cast:true;receive:true"
+        >
+          <a-animation
+            attribute="rotation"
+            to="360 0 0"
+            dur="250"
+            repeat="indefinitely"
+            easing="linear"
+          ></a-animation>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
