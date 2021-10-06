@@ -14,6 +14,6 @@ This project is an assignment which inculdes turning a 2D-painting into a 3D sce
 
 Next time, I would add more dark clouds to make the sun look brighter and more fog near the water
 
-## First time with Glitch and why?!
+## First time with Aframe and why?!
 
-This is my first time using Glitch and building a 3D scene so I tried my best. I found glitch really easy to use compared to other editors such as VS code because of assets URL and easy to find path. Instead of using relative or absolute path, the URL makes everything really easy!
+Excited to learn more 3D modeling and using Aframe in the future!
